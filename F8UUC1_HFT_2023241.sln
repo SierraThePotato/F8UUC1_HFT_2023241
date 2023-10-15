@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F8UUC1_HFT_2023241.Models",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F8UUC1_HFT_2023241.Logic", "F8UUC1_HFT_2023241.Logic\F8UUC1_HFT_2023241.Logic.csproj", "{D99C3983-08E3-457F-9727-F5E8FF8E343B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F8UUC1_HFT_2023241.Repository", "F8UUC1_HFT_2023241.Repository\F8UUC1_HFT_2023241.Repository.csproj", "{E3AA857E-85B5-4452-92BC-03374F820432}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D99C3983-08E3-457F-9727-F5E8FF8E343B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D99C3983-08E3-457F-9727-F5E8FF8E343B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D99C3983-08E3-457F-9727-F5E8FF8E343B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3AA857E-85B5-4452-92BC-03374F820432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3AA857E-85B5-4452-92BC-03374F820432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3AA857E-85B5-4452-92BC-03374F820432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3AA857E-85B5-4452-92BC-03374F820432}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
