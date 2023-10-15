@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F8UUC1_HFT_2023241.Client",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F8UUC1_HFT_2023241.Models", "F8UUC1_HFT_2023241.Models\F8UUC1_HFT_2023241.Models.csproj", "{EDDE8025-DCB9-4BDE-8BF8-54C6DF9C1D2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F8UUC1_HFT_2023241.Logic", "F8UUC1_HFT_2023241.Logic\F8UUC1_HFT_2023241.Logic.csproj", "{D99C3983-08E3-457F-9727-F5E8FF8E343B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EDDE8025-DCB9-4BDE-8BF8-54C6DF9C1D2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDDE8025-DCB9-4BDE-8BF8-54C6DF9C1D2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDDE8025-DCB9-4BDE-8BF8-54C6DF9C1D2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D99C3983-08E3-457F-9727-F5E8FF8E343B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D99C3983-08E3-457F-9727-F5E8FF8E343B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D99C3983-08E3-457F-9727-F5E8FF8E343B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D99C3983-08E3-457F-9727-F5E8FF8E343B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
