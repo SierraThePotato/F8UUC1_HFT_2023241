@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace F8UUC1_HFT_2023241.Models
 {
-    internal class Engine
+    public class Engine
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -25,6 +25,8 @@ namespace F8UUC1_HFT_2023241.Models
         [Required]
         [StringLength(240)]
         public string Fuel { get; set; }
+
+        public virtual ICollection<Car> Cars { get; set; }
 
         public Engine()
         {

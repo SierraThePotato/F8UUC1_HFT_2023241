@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace F8UUC1_HFT_2023241.Models
 {
-    internal class Brand
+    public class Brand
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -25,6 +25,8 @@ namespace F8UUC1_HFT_2023241.Models
         [Required]
         [StringLength(240)]
         public string Country { get; set; }
+
+        public virtual ICollection<Car> Cars { get; set; }
 
         public Brand()
         {
