@@ -6,22 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace F8UUC1_HFT_2023241.Repository
+namespace F8UUC1_HFT_2023241.Repository.ModelRepositories
 {
-    internal class CarRepository : Repository<Car>, IRepository<Car>
+    internal class BrandRepository : Repository<Brand>, IRepository<Brand>
     {
-        public CarRepository(CarsDbContext ctx) : base(ctx)
+        public BrandRepository(CarsDbContext ctx) : base(ctx)
         {
         }
 
-        public override Car Read(int id)
+        public override Brand Read(int id)
         {
-            return this.ctx.Cars.First(t => t.CarId == id);
+            return this.ctx.Brands.First(t => t.BrandId == id);
         }
 
-        public override void Update(Car item)
+        public override void Update(Brand item)
         {
-            var old = Read(item.CarId);
+            var old = Read(item.BrandId);
             foreach (var prop in old.GetType().GetProperties())
             {
                 prop.SetValue(old, prop.GetValue(item));
