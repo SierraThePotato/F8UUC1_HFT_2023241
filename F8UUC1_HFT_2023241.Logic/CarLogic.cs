@@ -53,13 +53,28 @@ namespace F8UUC1_HFT_2023241.Logic
             this.repo.Update(item);
         }
 
-        public IEnumerable<Brand> BiggestEngineByBrand()
+        public IEnumerable<BrandWithDisplacement> BiggestDisplacementByBrand()
         {
-            return from car in repo.ReadAll()
-                   join engine in engineRepo.ReadAll() on car.EngineId equals engine.EngineId
-                   join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
-                   group new { engine.Displacement, brand. } by brand.BrandID into grouped
-        }          
+            var brandsByDisplacement = (from car in repo.ReadAll()
+                                       join engine in engineRepo.ReadAll() on car.EngineId equals engine.EngineId
+                                       join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
+                                       group new { engine.Displacement, brand.Name } by brand.BrandId into grouped
+                                       select new BrandWithDisplacement
+                                       {
+                                           BrandID = grouped.Key,
+                                           MaxDisplacement = grouped.Max(e => e.Displacement),
+                                           BrandName = grouped.First().Name
+                                       });
+            return brandsByDisplacement;
 
+        }
+
+    }
+
+    public class BrandWithDisplacement
+    {
+        public int BrandID { get; set; }
+        public string BrandName { get; set; }
+        public int MaxDisplacement { get; set; }
     }
 }
