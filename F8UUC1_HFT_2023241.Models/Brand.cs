@@ -16,6 +16,10 @@ namespace F8UUC1_HFT_2023241.Models
 
         [Required]
         [StringLength(240)]
+        public string Name { get; set; }
+
+        [Required]
+        [StringLength(240)]
         public string Inventor { get; set; }
 
         [Required]
@@ -36,9 +40,10 @@ namespace F8UUC1_HFT_2023241.Models
         {
             string[] split = line.Split('#');
             BrandId = int.Parse(split[0]);
-            Inventor = split[1];
-            Owner = split[2];
-            Country = split[3];
+            Name = split[1];
+            Inventor = split[2];
+            Owner = split[3];
+            Country = split[4];
         }
     }
 }

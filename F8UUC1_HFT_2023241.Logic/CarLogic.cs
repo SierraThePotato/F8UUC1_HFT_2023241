@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using F8UUC1_HFT_2023241.Models;
 using F8UUC1_HFT_2023241.Repository;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace F8UUC1_HFT_2023241.Logic
 {
@@ -10,6 +11,8 @@ namespace F8UUC1_HFT_2023241.Logic
     {
 
         IRepository<Car> repo;
+        IRepository<Brand> brandRepo;
+        IRepository<Engine> engineRepo;
 
         public CarLogic(IRepository<Car> repo)
         {
@@ -50,11 +53,13 @@ namespace F8UUC1_HFT_2023241.Logic
             this.repo.Update(item);
         }
 
-        public IEnumerable<Brand> BiggestAvgEngine()
+        public IEnumerable<Brand> BiggestEngineByBrand()
         {
-
-            return null;
-        }
+            return from car in repo.ReadAll()
+                   join engine in engineRepo.ReadAll() on car.EngineId equals engine.EngineId
+                   join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
+                   group new { engine.Displacement, brand. } by brand.BrandID into grouped
+        }          
 
     }
 }
