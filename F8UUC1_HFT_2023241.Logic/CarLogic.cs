@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using F8UUC1_HFT_2023241.Models;
 using F8UUC1_HFT_2023241.Repository;
@@ -17,6 +18,10 @@ namespace F8UUC1_HFT_2023241.Logic
 
         public void Create(Car item)
         {
+            if (item.Year < 1886)
+            {
+                throw new ArgumentException("Invalid year.");
+            }
             this.repo.Create(item);
         }
 
@@ -27,6 +32,11 @@ namespace F8UUC1_HFT_2023241.Logic
 
         public Car Read(int id)
         {
+            var movie = this.repo.Read(id);
+            if (movie == null)
+            {
+                throw new ArgumentException("Car does not exist.");
+            }
             return this.repo.Read(id);
         }
 
@@ -39,5 +49,12 @@ namespace F8UUC1_HFT_2023241.Logic
         {
             this.repo.Update(item);
         }
+
+        public IEnumerable<Brand> BiggestAvgEngine()
+        {
+
+            return null;
+        }
+
     }
 }
