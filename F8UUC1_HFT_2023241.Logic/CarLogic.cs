@@ -66,7 +66,24 @@ namespace F8UUC1_HFT_2023241.Logic
                                            BrandName = grouped.First().Name
                                        });
             return brandsByDisplacement;
+        }
 
+        public IEnumerable<Car> NewestCarByBrand()
+        {
+            var newestCarForEachBrand = from car in repo.ReadAll()
+                                        join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
+                                        group car by brand.BrandId into grouped
+                                        select grouped.OrderByDescending(c => c.Year).FirstOrDefault();
+            return newestCarForEachBrand;
+        }
+
+        public IEnumerable<Car> OldestCarByBrand()
+        {
+            var oldestCarForEachBrand = from car in repo.ReadAll()
+                                        join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
+                                        group car by brand.BrandId into grouped
+                                        select grouped.OrderBy(c => c.Year).FirstOrDefault();
+            return oldestCarForEachBrand;
         }
 
     }
