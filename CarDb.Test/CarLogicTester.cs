@@ -8,7 +8,7 @@ namespace CarDb.Test
     {
         CarLogic logic;
 
-        [SetUp]
+        
         public void Init()
         {
 

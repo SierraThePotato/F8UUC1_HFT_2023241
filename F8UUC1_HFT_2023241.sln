@@ -26,8 +26,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Others", "Others", "{75FD53
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDb.Test", "CarDb.Test\CarDb.Test.csproj", "{B7538B5F-4163-4DC6-B243-F3CA4C44B644}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,10 +56,6 @@ Global
 		{003FC2F2-2AD7-4529-8715-E87870CDC492}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{003FC2F2-2AD7-4529-8715-E87870CDC492}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{003FC2F2-2AD7-4529-8715-E87870CDC492}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7538B5F-4163-4DC6-B243-F3CA4C44B644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7538B5F-4163-4DC6-B243-F3CA4C44B644}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7538B5F-4163-4DC6-B243-F3CA4C44B644}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7538B5F-4163-4DC6-B243-F3CA4C44B644}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,7 +67,6 @@ Global
 		{E3AA857E-85B5-4452-92BC-03374F820432} = {E9CF805F-5BE2-4200-BF42-F40FB1FC2D31}
 		{DDF850E1-D635-4314-B524-F5DCEDC1F4C5} = {E9CF805F-5BE2-4200-BF42-F40FB1FC2D31}
 		{003FC2F2-2AD7-4529-8715-E87870CDC492} = {E9CF805F-5BE2-4200-BF42-F40FB1FC2D31}
-		{B7538B5F-4163-4DC6-B243-F3CA4C44B644} = {75FD533E-F10B-4384-8B0C-0B173B7F9848}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D96F06C0-C6A5-45CC-9804-FEC359A300E1}
