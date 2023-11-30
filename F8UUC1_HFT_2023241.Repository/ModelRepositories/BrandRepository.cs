@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace F8UUC1_HFT_2023241.Repository.ModelRepositories
 {
-    internal class BrandRepository : Repository<Brand>, IRepository<Brand>
+    public class BrandRepository : Repository<Brand>, IRepository<Brand>
     {
         public BrandRepository(CarsDbContext ctx) : base(ctx)
         {

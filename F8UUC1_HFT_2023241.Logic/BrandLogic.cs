@@ -9,9 +9,14 @@ using System.Threading.Tasks;
 
 namespace F8UUC1_HFT_2023241.Logic
 {
-    internal class BrandLogic : IBrandLogic
+    public class BrandLogic : IBrandLogic
     {
         IRepository<Brand> repo;
+
+        public BrandLogic(IRepository<Brand> repo)
+        {
+            this.repo = repo;
+        }
 
         public void Create(Brand item)
         {

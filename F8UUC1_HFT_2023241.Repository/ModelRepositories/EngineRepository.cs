@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace F8UUC1_HFT_2023241.Repository.ModelRepositories
 {
-    internal class EngineRepository : Repository<Engine>, IRepository<Engine>
+    public class EngineRepository : Repository<Engine>, IRepository<Engine>
     {
         public EngineRepository(CarsDbContext ctx) : base(ctx)
         {

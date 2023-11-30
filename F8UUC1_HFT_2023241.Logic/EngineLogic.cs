@@ -9,9 +9,14 @@ using System.Threading.Tasks;
 
 namespace F8UUC1_HFT_2023241.Logic
 {
-    internal class EngineLogic : IEngineLogic
+    public class EngineLogic : IEngineLogic
     {
         IRepository<Engine> repo;
+
+        public EngineLogic(IRepository<Engine> repo)
+        {
+            this.repo = repo;
+        }
 
         public void Create(Engine item)
         {
