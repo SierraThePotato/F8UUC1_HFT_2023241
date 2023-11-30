@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using F8UUC1_HFT_2023241.Logic.Interfaces;
 using F8UUC1_HFT_2023241.Models;
 using F8UUC1_HFT_2023241.Repository;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace F8UUC1_HFT_2023241.Logic
 {
-    public class CarLogic
+    public class CarLogic : ICarLogic
     {
 
         IRepository<Car> repo;
@@ -56,15 +57,15 @@ namespace F8UUC1_HFT_2023241.Logic
         public IEnumerable<BrandWithDisplacement> BiggestDisplacementByBrand()
         {
             var brandsByDisplacement = (from car in repo.ReadAll()
-                                       join engine in engineRepo.ReadAll() on car.EngineId equals engine.EngineId
-                                       join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
-                                       group new { engine.Displacement, brand.Name } by brand.BrandId into grouped
-                                       select new BrandWithDisplacement
-                                       {
-                                           BrandID = grouped.Key,
-                                           MaxDisplacement = grouped.Max(e => e.Displacement),
-                                           BrandName = grouped.First().Name
-                                       });
+                                        join engine in engineRepo.ReadAll() on car.EngineId equals engine.EngineId
+                                        join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
+                                        group new { engine.Displacement, brand.Name } by brand.BrandId into grouped
+                                        select new BrandWithDisplacement
+                                        {
+                                            BrandID = grouped.Key,
+                                            MaxDisplacement = grouped.Max(e => e.Displacement),
+                                            BrandName = grouped.First().Name
+                                        });
             return brandsByDisplacement;
         }
 
@@ -86,6 +87,36 @@ namespace F8UUC1_HFT_2023241.Logic
             return oldestCarForEachBrand;
         }
 
+        public IEnumerable<CarBrand> CarBrandDisplacement()
+        {
+            var carDetails = from car in repo.ReadAll()
+                             join engine in engineRepo.ReadAll() on car.EngineId equals engine.EngineId
+                             join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
+                             select new CarBrand
+                             {
+                                 BrandName = brand.Name,
+                                 Model = car.Model,
+                                 Displacement = engine.Displacement
+                             };
+            return carDetails.AsEnumerable();
+        }
+
+        public IEnumerable<CarBrand> CarBrandMinDisplacement(int minDisplacement)
+        {
+            var carDetails = from car in repo.ReadAll()
+                             join engine in engineRepo.ReadAll() on car.EngineId equals engine.EngineId
+                             join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
+                             where engine.Displacement >= minDisplacement
+                             select new CarBrand
+                             {
+                                 BrandName = brand.Name,
+                                 Model = car.Model,
+                                 Displacement = engine.Displacement
+                             };
+            return carDetails.AsEnumerable();
+        }
+
+
     }
 
     public class BrandWithDisplacement
@@ -93,5 +124,12 @@ namespace F8UUC1_HFT_2023241.Logic
         public int BrandID { get; set; }
         public string BrandName { get; set; }
         public int MaxDisplacement { get; set; }
+    }
+
+    public class CarBrand
+    {
+        public string BrandName { get; set; }
+        public string Model { get; set; }
+        public int Displacement { get; set; }
     }
 }

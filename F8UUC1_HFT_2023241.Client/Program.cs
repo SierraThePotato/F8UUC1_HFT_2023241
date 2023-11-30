@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 
 namespace F8UUC1_HFT_2023241.Client
 {
@@ -6,7 +6,6 @@ namespace F8UUC1_HFT_2023241.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
         }
     }
 }
