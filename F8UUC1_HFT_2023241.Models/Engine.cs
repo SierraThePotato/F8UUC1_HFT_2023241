@@ -26,6 +26,7 @@ namespace F8UUC1_HFT_2023241.Models
         [StringLength(240)]
         public string Fuel { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Car> Cars { get; set; }
 
         public Engine()

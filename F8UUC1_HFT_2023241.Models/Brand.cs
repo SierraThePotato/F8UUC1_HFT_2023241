@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace F8UUC1_HFT_2023241.Models
 {
@@ -30,6 +31,7 @@ namespace F8UUC1_HFT_2023241.Models
         [StringLength(240)]
         public string Country { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Car> Cars { get; set; }
 
         public Brand()

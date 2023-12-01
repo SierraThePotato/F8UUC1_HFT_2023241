@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.Internal.AsyncLock;
 
@@ -30,7 +31,9 @@ namespace F8UUC1_HFT_2023241.Models
         [Range(1800, 3000)]
         public int Year { get; set; }
 
+        [JsonIgnore]
         public virtual Engine Engine { get; private set; }
+        [JsonIgnore]
         public virtual Brand Brand { get; private set; }
 
         public Car()
