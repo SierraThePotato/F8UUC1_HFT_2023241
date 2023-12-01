@@ -46,5 +46,17 @@ namespace F8UUC1_HFT_2023241.Models
             EngineId = int.Parse(split[3]);
             Year = int.Parse(split[4]);
         }
+
+        public override bool Equals(object obj)
+        {
+            Car b = obj as Car;
+            if (b == null) return false;
+            return this.Year == b.Year && this.BrandId == b.BrandId && this.Model == b.Model && this.EngineId == b.EngineId && this.Year == b.Year;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.CarId, this.BrandId, this.Model, this.EngineId, this.Year);
+        }
     }
 }
