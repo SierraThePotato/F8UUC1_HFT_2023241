@@ -188,6 +188,7 @@ namespace F8UUC1_HFT_2023241.Client
                     Console.WriteLine($"{brand.BrandId}: {brand.Name}");
                 }
             }
+            Console.ReadLine();
         }
 
         static void Main(string[] args)
