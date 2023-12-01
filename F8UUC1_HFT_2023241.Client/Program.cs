@@ -132,11 +132,67 @@ namespace F8UUC1_HFT_2023241.Client
             }
             else if (entity == "Engine")
             {
+                Console.Write("Enter EngineID to update: ");
+                int id = int.Parse(Console.ReadLine());
+                Engine toUpdate = rest.Get<Engine>(id, "engine");
 
+                foreach (var prop in typeof(Engine).GetProperties())
+                {
+                    if (prop.GetCustomAttributes(false)[0].ToString().Equals("System.ComponentModel.DataAnnotations.RequiredAttribute"))
+                    {
+                        Console.Write("Enter new value for: " + prop.Name + "(press enter to keep original): ");
+                        string value = Console.ReadLine();
+                        if (value.Equals(""))
+                        {
+
+                        }
+                        else if (prop.PropertyType == typeof(string))
+                        {
+                            prop.SetValue(toUpdate, value);
+                        }
+                        else
+                        {
+                            Type proptype = prop.PropertyType;
+                            var parseMethod = proptype.GetMethods().First(t => t.Name.Contains("Parse"));
+                            var converted = parseMethod.Invoke(null, new object[] { value });
+                            prop.SetValue(toUpdate, converted);
+                        }
+                    }
+                }
+
+                rest.Put(toUpdate, "engine");
             }
             else if (entity == "Brand")
             {
+                Console.Write("Enter BrandID to update: ");
+                int id = int.Parse(Console.ReadLine());
+                Brand toUpdate = rest.Get<Brand>(id, "brand");
 
+                foreach (var prop in typeof(Brand).GetProperties())
+                {
+                    if (prop.GetCustomAttributes(false)[0].ToString().Equals("System.ComponentModel.DataAnnotations.RequiredAttribute"))
+                    {
+                        Console.Write("Enter new value for: " + prop.Name + "(press enter to keep original): ");
+                        string value = Console.ReadLine();
+                        if (value.Equals(""))
+                        {
+
+                        }
+                        else if (prop.PropertyType == typeof(string))
+                        {
+                            prop.SetValue(toUpdate, value);
+                        }
+                        else
+                        {
+                            Type proptype = prop.PropertyType;
+                            var parseMethod = proptype.GetMethods().First(t => t.Name.Contains("Parse"));
+                            var converted = parseMethod.Invoke(null, new object[] { value });
+                            prop.SetValue(toUpdate, converted);
+                        }
+                    }
+                }
+
+                rest.Put(toUpdate, "brand");
             }
         }
 
