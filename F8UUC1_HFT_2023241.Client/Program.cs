@@ -120,11 +120,15 @@ namespace F8UUC1_HFT_2023241.Client
             }
             else if (entity == "Engine")
             {
-
+                Console.Write("Enter EngineID to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "engine");
             }
             else if (entity == "Brand")
             {
-
+                Console.Write("Enter BrandID to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "brand");
             }
         }
 
