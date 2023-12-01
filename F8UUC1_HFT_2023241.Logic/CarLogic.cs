@@ -138,7 +138,7 @@ namespace F8UUC1_HFT_2023241.Logic
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(this.CarId, this.BrandId, this.Model, this.EngineId, this.Year);
+            return HashCode.Combine(this.BrandID, this.BrandName, this.MaxDisplacement);
         }
     }
 
@@ -147,6 +147,20 @@ namespace F8UUC1_HFT_2023241.Logic
         public string BrandName { get; set; }
         public string Model { get; set; }
         public int Displacement { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            CarBrand b = obj as CarBrand;
+            if (b == null) return false;
+            return this.BrandName == b.BrandName
+                && this.Model == b.Model
+                && this.Displacement == b.Displacement;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.BrandName, this.Model, this.Displacement);
+        }
     }
 
 }

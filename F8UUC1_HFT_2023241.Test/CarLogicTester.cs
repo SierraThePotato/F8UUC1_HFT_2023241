@@ -52,7 +52,7 @@ namespace F8UUC1_HFT_2023241.Test
                 new Car("2#2#Civic#2#2019"),
                 new Car("3#3#F-150#3#2021"),
                 new Car("4#4#Malibu#2#2020"),
-                new Car("4#4#Volt#2#2021"),
+                new Car("4#4#Volt#4#2021"),
             }.AsQueryable());
             carLogic = new CarLogic(mockCarRepo.Object, mockBrandRepo.Object, mockEngineRepo.Object);
 
@@ -136,7 +136,7 @@ namespace F8UUC1_HFT_2023241.Test
                 new Car("1#1#Camry#1#2020"),
                 new Car("2#2#Civic#2#2019"),
                 new Car("3#3#F-150#3#2021"),
-                new Car("4#4#Volt#2#2021"),
+                new Car("4#4#Volt#4#2021"),
             };
             Assert.AreEqual(expected, actual);
         }
@@ -151,6 +151,47 @@ namespace F8UUC1_HFT_2023241.Test
                 new Car("2#2#Civic#2#2019"),
                 new Car("3#3#F-150#3#2021"),
                 new Car("4#4#Malibu#2#2020"),
+            };
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void BiggestDisplacementByBrandTest()
+        {
+            var actual = carLogic.BiggestDisplacementByBrand().ToList();
+            var expected = new List<BrandWithDisplacement>
+            {
+                new BrandWithDisplacement() { BrandID = 1, BrandName = "Toyota", MaxDisplacement = 3500},
+                new BrandWithDisplacement() { BrandID = 2, BrandName = "Honda", MaxDisplacement = 2000},
+                new BrandWithDisplacement() { BrandID = 3, BrandName = "Ford", MaxDisplacement = 5000},
+                new BrandWithDisplacement() { BrandID = 4, BrandName = "Chevrolet", MaxDisplacement = 2000},
+            };
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void CarBrandDisplacementTest()
+        {
+            var actual = carLogic.CarBrandDisplacement().ToList();
+            var expected = new List<CarBrand>
+            {
+                new CarBrand() { BrandName = "Toyota", Model = "Camry", Displacement = 3500},
+                new CarBrand() { BrandName = "Honda", Model = "Civic", Displacement = 2000},
+                new CarBrand() { BrandName = "Ford", Model = "F-150", Displacement = 5000},
+                new CarBrand() { BrandName = "Chevrolet", Model = "Malibu", Displacement = 2000},
+                new CarBrand() { BrandName = "Chevrolet", Model = "Volt", Displacement = 0},
+            };
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void CarBrandMinDisplacementTest()
+        {
+            var actual = carLogic.CarBrandMinDisplacement(3000).ToList();
+            var expected = new List<CarBrand>
+            {
+                new CarBrand() { BrandName = "Toyota", Model = "Camry", Displacement = 3500},
+                new CarBrand() { BrandName = "Ford", Model = "F-150", Displacement = 5000},
             };
             Assert.AreEqual(expected, actual);
         }
