@@ -25,17 +25,6 @@ namespace F8UUC1_HFT_2023241.Test
         [SetUp]
         public void Init()
         {
-            mockCarRepo = new Mock<IRepository<Car>>();
-            mockCarRepo.Setup(m => m.ReadAll()).Returns(new List<Car>()
-            {
-                new Car("1#1#Camry#1#2020"),
-                new Car("2#2#Civic#2#2019"),
-                new Car("3#3#F-150#3#2021"),
-                new Car("4#4#Malibu#2#2020"),
-                new Car("4#4#Volt#2#2021"),
-            }.AsQueryable());
-            carLogic = new CarLogic(mockCarRepo.Object);
-
             mockBrandRepo = new Mock<IRepository<Brand>>();
             mockBrandRepo.Setup(m => m.ReadAll()).Returns(new List<Brand>()
             {
@@ -55,6 +44,17 @@ namespace F8UUC1_HFT_2023241.Test
                 new Engine("4#Electric#0#350#Electric"),
             }.AsQueryable());
             engineLogic = new EngineLogic(mockEngineRepo.Object);
+
+            mockCarRepo = new Mock<IRepository<Car>>();
+            mockCarRepo.Setup(m => m.ReadAll()).Returns(new List<Car>()
+            {
+                new Car("1#1#Camry#1#2020"),
+                new Car("2#2#Civic#2#2019"),
+                new Car("3#3#F-150#3#2021"),
+                new Car("4#4#Malibu#2#2020"),
+                new Car("4#4#Volt#2#2021"),
+            }.AsQueryable());
+            carLogic = new CarLogic(mockCarRepo.Object, mockBrandRepo.Object, mockEngineRepo.Object);
 
         }
 
@@ -137,6 +137,20 @@ namespace F8UUC1_HFT_2023241.Test
                 new Car("2#2#Civic#2#2019"),
                 new Car("3#3#F-150#3#2021"),
                 new Car("4#4#Volt#2#2021"),
+            };
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void OldestCarByBrandTest()
+        {
+            var actual = carLogic.OldestCarByBrand().ToList();
+            var expected = new List<Car>
+            {
+                new Car("1#1#Camry#1#2020"),
+                new Car("2#2#Civic#2#2019"),
+                new Car("3#3#F-150#3#2021"),
+                new Car("4#4#Malibu#2#2020"),
             };
             Assert.AreEqual(expected, actual);
         }

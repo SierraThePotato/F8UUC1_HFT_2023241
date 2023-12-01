@@ -73,7 +73,7 @@ namespace F8UUC1_HFT_2023241.Client
             var engineRepo = new EngineRepository(ctx);
             var brandRepo = new BrandRepository(ctx);
             
-            carLogic = new CarLogic(carRepo);
+            carLogic = new CarLogic(carRepo, brandRepo, engineRepo);
             engineLogic = new EngineLogic(engineRepo);
             brandLogic = new BrandLogic(brandRepo);
 

@@ -51,7 +51,11 @@ namespace F8UUC1_HFT_2023241.Models
         {
             Car b = obj as Car;
             if (b == null) return false;
-            return this.Year == b.Year && this.BrandId == b.BrandId && this.Model == b.Model && this.EngineId == b.EngineId && this.Year == b.Year;
+            return this.Year == b.Year 
+                && this.BrandId == b.BrandId 
+                && this.Model == b.Model 
+                && this.EngineId == b.EngineId 
+                && this.Year == b.Year;
         }
 
         public override int GetHashCode()

@@ -15,9 +15,11 @@ namespace F8UUC1_HFT_2023241.Logic
         IRepository<Brand> brandRepo;
         IRepository<Engine> engineRepo;
 
-        public CarLogic(IRepository<Car> repo)
+        public CarLogic(IRepository<Car> carRepo, IRepository<Brand> brandRepo, IRepository<Engine> engineRepo)
         {
-            this.repo = repo;
+            this.repo = carRepo;
+            this.brandRepo = brandRepo;
+            this.engineRepo = engineRepo;
         }
 
         public void Create(Car item)
@@ -124,6 +126,20 @@ namespace F8UUC1_HFT_2023241.Logic
         public int BrandID { get; set; }
         public string BrandName { get; set; }
         public int MaxDisplacement { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            BrandWithDisplacement b = obj as BrandWithDisplacement;
+            if (b == null) return false;
+            return this.BrandID == b.BrandID 
+                && this.BrandName == b.BrandName 
+                && this.MaxDisplacement == b.MaxDisplacement;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.CarId, this.BrandId, this.Model, this.EngineId, this.Year);
+        }
     }
 
     public class CarBrand
@@ -133,13 +149,4 @@ namespace F8UUC1_HFT_2023241.Logic
         public int Displacement { get; set; }
     }
 
-    public override bool Equals(object obj)
-    {
-
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(this.CarId, )
-    }
 }
