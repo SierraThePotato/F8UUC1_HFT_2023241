@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using ConsoleTools;
 using F8UUC1_HFT_2023241.Models;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -96,9 +97,38 @@ namespace F8UUC1_HFT_2023241.Client
 
         static void Update(string entity)
         {
+            string[] args = new string[0];
             if (entity == "Car")
             {
+                Console.Write("Enter CarID to update: ");
+                int id = int.Parse(Console.ReadLine());
+                Car toUpdate = rest.Get<Car>(id, "car");
 
+                foreach (var prop in typeof(Car).GetProperties())
+                {
+                    if (prop.GetCustomAttributes(false)[0].ToString().Equals("System.ComponentModel.DataAnnotations.RequiredAttribute"))
+                    {
+                        Console.Write("Enter new value for: " + prop.Name + "(press enter to keep original): ");
+                        string value = Console.ReadLine();
+                        if (value.Equals(""))
+                        {
+
+                        }
+                        else if (prop.PropertyType == typeof(string))
+                        {
+                            prop.SetValue(toUpdate, value);
+                        }
+                        else
+                        {
+                            Type proptype = prop.PropertyType;
+                            var parseMethod = proptype.GetMethods().First(t => t.Name.Contains("Parse"));
+                            var converted = parseMethod.Invoke(null, new object[] { value });
+                            prop.SetValue(toUpdate, converted);
+                        }
+                    }
+                }
+
+                rest.Put(toUpdate, "car");
             }
             else if (entity == "Engine")
             {
@@ -139,7 +169,7 @@ namespace F8UUC1_HFT_2023241.Client
                 List<Car> cars = rest.Get<Car>("car");
                 foreach (Car car in cars)
                 {
-                    Console.WriteLine(car.Model);
+                    Console.WriteLine($"{car.CarId}: {car.Model}");
                 }
 ;            }
             else if (entity == "Engine")
@@ -147,7 +177,7 @@ namespace F8UUC1_HFT_2023241.Client
                 List<Engine> engines = rest.Get<Engine>("engine");
                 foreach (Engine engine in engines)
                 {
-                    Console.WriteLine(engine.Type);
+                    Console.WriteLine($"{engine.EngineId}: {engine.Type}");
                 }
             }
             else if (entity == "Brand")
@@ -155,7 +185,7 @@ namespace F8UUC1_HFT_2023241.Client
                 List<Brand> brands = rest.Get<Brand>("brand");
                 foreach (Brand brand in brands)
                 {
-                    Console.WriteLine(brand.Name);
+                    Console.WriteLine($"{brand.BrandId}: {brand.Name}");
                 }
             }
         }
