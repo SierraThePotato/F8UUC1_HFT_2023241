@@ -20,6 +20,10 @@ namespace F8UUC1_HFT_2023241.Logic
 
         public void Create(Engine item)
         {
+            if (item.Displacement < 0)
+            {
+                throw new ArgumentException("Invalid displacement");
+            }
             this.repo.Create(item);
         }
 

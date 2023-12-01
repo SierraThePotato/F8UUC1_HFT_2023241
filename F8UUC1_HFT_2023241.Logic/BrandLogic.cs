@@ -20,6 +20,10 @@ namespace F8UUC1_HFT_2023241.Logic
 
         public void Create(Brand item)
         {
+            if (item.Name.Length < 2)
+            {
+                throw new ArgumentException("Name too short");
+            }
             this.repo.Create(item);
         }
 
