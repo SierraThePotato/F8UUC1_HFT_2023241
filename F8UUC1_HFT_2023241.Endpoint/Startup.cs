@@ -34,15 +34,15 @@ namespace F8UUC1_HFT_2023241.Endpoint
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<CarsDbContext>();
+            services.AddScoped<CarsDbContext>();
 
-            services.AddTransient<IRepository<Car>, CarRepository>();
-            services.AddTransient<IRepository<Brand>, BrandRepository>();
-            services.AddTransient<IRepository<Engine>, EngineRepository>();
+            services.AddScoped<IRepository<Car>, CarRepository>();
+            services.AddScoped<IRepository<Brand>, BrandRepository>();
+            services.AddScoped<IRepository<Engine>, EngineRepository>();
 
-            services.AddTransient<ICarLogic, CarLogic>();
-            services.AddTransient<IBrandLogic, BrandLogic>();
-            services.AddTransient<IEngineLogic, EngineLogic>();
+            services.AddScoped<ICarLogic, CarLogic>();
+            services.AddScoped<IBrandLogic, BrandLogic>();
+            services.AddScoped<IEngineLogic, EngineLogic>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

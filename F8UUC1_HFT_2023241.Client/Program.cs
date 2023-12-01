@@ -247,6 +247,11 @@ namespace F8UUC1_HFT_2023241.Client
             Console.ReadLine();
         }
 
+        static void DisplacementByBrand()
+        {
+            rest.Get<Car>("noncrudcontroller/biggestdisplacementbybrand");
+        }
+
         static void Main(string[] args)
         {
             rest = new RestService("http://localhost:62002/", "car");
@@ -256,6 +261,11 @@ namespace F8UUC1_HFT_2023241.Client
                 .Add("Create", () => Create("Car"))
                 .Add("List", () => List("Car"))
                 .Add("Update", () => Update("Car"))
+                .Add("Delete", () => Delete("Car"))
+                .Add("Biggest displacement by brand", () => DisplacementByBrand())
+                .Add("Delete", () => Delete("Car"))
+                .Add("Delete", () => Delete("Car"))
+                .Add("Delete", () => Delete("Car"))
                 .Add("Delete", () => Delete("Car"))
                 .Add("Exit", ConsoleMenu.Close);
 

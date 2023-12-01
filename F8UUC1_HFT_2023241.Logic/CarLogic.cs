@@ -71,12 +71,13 @@ namespace F8UUC1_HFT_2023241.Logic
             return brandsByDisplacement;
         }
 
+
         public IEnumerable<Car> NewestCarByBrand()
         {
             var newestCarForEachBrand = from car in repo.ReadAll()
                                         join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
                                         group car by brand.BrandId into grouped
-                                        select grouped.OrderByDescending(c => c.Year).FirstOrDefault();
+                                        select grouped.AsEnumerable().OrderByDescending(t => t.Year).FirstOrDefault();
             return newestCarForEachBrand;
         }
 
@@ -85,7 +86,12 @@ namespace F8UUC1_HFT_2023241.Logic
             var oldestCarForEachBrand = from car in repo.ReadAll()
                                         join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
                                         group car by brand.BrandId into grouped
-                                        select grouped.OrderBy(c => c.Year).FirstOrDefault();
+                                        let car = (
+                                            from item in grouped
+                                            orderby item.Year
+                                            select item
+                                        ).First()
+                                        select car;
             return oldestCarForEachBrand;
         }
 
