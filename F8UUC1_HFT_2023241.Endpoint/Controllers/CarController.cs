@@ -1,4 +1,5 @@
 ﻿using F8UUC1_HFT_2023241.Logic.Interfaces;
+using F8UUC1_HFT_2023241.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -20,34 +21,37 @@ namespace F8UUC1_HFT_2023241.Endpoint.Controllers
 
         // GET: api/<CarController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Car> ReadAll()
         {
-            return new string[] { "value1", "value2" };
+            return this.carLogic.ReadAll();
         }
 
         // GET api/<CarController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Car Read(int id)
         {
-            return "value";
+            return carLogic.Read(id);
         }
 
         // POST api/<CarController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Create([FromBody] Car value)
         {
+            this.carLogic.Create(value);
         }
 
         // PUT api/<CarController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void Put([FromBody] Car value)
         {
+            this.carLogic.Update(value);
         }
 
         // DELETE api/<CarController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            this.carLogic.Delete(id);
         }
     }
 }
