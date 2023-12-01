@@ -144,11 +144,19 @@ namespace F8UUC1_HFT_2023241.Client
 ;            }
             else if (entity == "Engine")
             {
-
+                List<Engine> engines = rest.Get<Engine>("engine");
+                foreach (Engine engine in engines)
+                {
+                    Console.WriteLine(engine.Type);
+                }
             }
             else if (entity == "Brand")
             {
-
+                List<Brand> brands = rest.Get<Brand>("brand");
+                foreach (Brand brand in brands)
+                {
+                    Console.WriteLine(brand.Name);
+                }
             }
         }
 
