@@ -1,18 +1,11 @@
 ﻿using System;
 using ConsoleTools;
-using F8UUC1_HFT_2023241.Logic;
 using F8UUC1_HFT_2023241.Models;
-using F8UUC1_HFT_2023241.Repository;
-using F8UUC1_HFT_2023241.Repository.ModelRepositories;
-using F8UUC1_HFT_2023241.Repository.Database;
 
 namespace F8UUC1_HFT_2023241.Client
 {
     internal class Program
     {
-        static CarLogic carLogic;
-        static EngineLogic engineLogic;
-        static BrandLogic brandLogic;
 
         static void Create(string entity)
         {
@@ -36,47 +29,21 @@ namespace F8UUC1_HFT_2023241.Client
         {
             if (entity == "Car")
             {
-                var items = carLogic.ReadAll();
-                Console.WriteLine("Model" + "\t" + "Year");
-                foreach (var item in items)
-                {
-                    Console.WriteLine(item.Model + "\t" + item.Year);
-                }
+
             }
             else if (entity == "Engine")
             {
-                var items = engineLogic.ReadAll();
-                Console.WriteLine("Type" + "\t" + "Displacement");
-                foreach (var item in items)
-                {
-                    Console.WriteLine(item.Type + "\t" + item.Displacement);
-                }
+
             }
             else if (entity == "Brand")
             {
-                var items = brandLogic.ReadAll();
-                Console.WriteLine("Name" + "\t" + "Country");
-                foreach (var item in items)
-                {
-                    Console.WriteLine(item.Name + "\t" + item.Country);
-                }
+
             }
             Console.ReadLine();
         }
 
         static void Main(string[] args)
         {
-
-            var ctx = new CarsDbContext();
-
-            var carRepo = new CarRepository(ctx);
-            var engineRepo = new EngineRepository(ctx);
-            var brandRepo = new BrandRepository(ctx);
-            
-            carLogic = new CarLogic(carRepo, brandRepo, engineRepo);
-            engineLogic = new EngineLogic(engineRepo);
-            brandLogic = new BrandLogic(brandRepo);
-
             var carSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("Create", () => Create("Car"))
                 .Add("List", () => List("Car"))
