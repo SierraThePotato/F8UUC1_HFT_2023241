@@ -20,9 +20,10 @@ namespace F8UUC1_HFT_2023241.Endpoint.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<BrandWithDisplacement> BiggestDisplacementByBrand()
+        public IEnumerable<CarBrand> BiggestDisplacementByBrand()
         {
-            return this.logic.BiggestDisplacementByBrand();
+            var a = this.logic.BiggestDisplacementByBrand();
+            return a;
         }
 
         [HttpGet]

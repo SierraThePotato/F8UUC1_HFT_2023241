@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using F8UUC1_HFT_2023241.Logic.Interfaces;
 using F8UUC1_HFT_2023241.Models;
 using F8UUC1_HFT_2023241.Repository;
@@ -56,19 +57,38 @@ namespace F8UUC1_HFT_2023241.Logic
             this.repo.Update(item);
         }
 
-        public IEnumerable<BrandWithDisplacement> BiggestDisplacementByBrand()
+        public IEnumerable<CarBrand> BiggestDisplacementByBrand1()
         {
-            var brandsByDisplacement = (from car in repo.ReadAll()
-                                        join engine in engineRepo.ReadAll() on car.EngineId equals engine.EngineId
-                                        join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
-                                        group new { engine.Displacement, brand.Name } by brand.BrandId into grouped
-                                        select new BrandWithDisplacement
-                                        {
-                                            BrandID = grouped.Key,
-                                            MaxDisplacement = grouped.Max(e => e.Displacement),
-                                            BrandName = grouped.First().Name
-                                        });
-            return brandsByDisplacement;
+            var brandsByDisplacement = from car in repo.ReadAll()
+                                       join engine in engineRepo.ReadAll() on car.EngineId equals engine.EngineId
+                                       join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
+                                       group new { engine.Displacement, car.Model } by brand.Name into grouped
+                                       select new CarBrand
+                                       {
+                                           BrandName = grouped.Key,
+                                           Displacement = grouped.Max(t => t.Displacement),
+                                           Model = grouped.First().Model
+                                       };
+
+            var a = brandsByDisplacement.AsEnumerable();
+            return a;
+        }
+        
+        public IEnumerable<CarBrand> BiggestDisplacementByBrand()
+        {
+            var biggestDisplacementCars = repo.ReadAll()
+                                            .Join(engineRepo.ReadAll(), car => car.EngineId, engine => engine.EngineId, (car, engine) => new { Car = car, Engine = engine })
+                                            .Join(brandRepo.ReadAll(), ce => ce.Car.BrandId, brand => brand.BrandId, (ce, brand) => new CarBrand
+                                            {
+                                                BrandName = brand.Name,
+                                                Model = ce.Car.Model,
+                                                Displacement = ce.Engine.Displacement
+                                            })
+                                            .GroupBy(cb => cb.BrandName)
+                                            .Select(group => group.OrderByDescending(cb => cb.Displacement).First());
+
+            var a = biggestDisplacementCars.AsEnumerable();
+            return a;
         }
 
 
@@ -125,27 +145,6 @@ namespace F8UUC1_HFT_2023241.Logic
         }
 
 
-    }
-
-    public class BrandWithDisplacement
-    {
-        public int BrandID { get; set; }
-        public string BrandName { get; set; }
-        public int MaxDisplacement { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            BrandWithDisplacement b = obj as BrandWithDisplacement;
-            if (b == null) return false;
-            return this.BrandID == b.BrandID 
-                && this.BrandName == b.BrandName 
-                && this.MaxDisplacement == b.MaxDisplacement;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(this.BrandID, this.BrandName, this.MaxDisplacement);
-        }
     }
 
     public class CarBrand

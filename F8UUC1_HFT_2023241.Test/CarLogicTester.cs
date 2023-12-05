@@ -159,12 +159,12 @@ namespace F8UUC1_HFT_2023241.Test
         public void BiggestDisplacementByBrandTest()
         {
             var actual = carLogic.BiggestDisplacementByBrand().ToList();
-            var expected = new List<BrandWithDisplacement>
+            var expected = new List<CarBrand>
             {
-                new BrandWithDisplacement() { BrandID = 1, BrandName = "Toyota", MaxDisplacement = 3500},
-                new BrandWithDisplacement() { BrandID = 2, BrandName = "Honda", MaxDisplacement = 2000},
-                new BrandWithDisplacement() { BrandID = 3, BrandName = "Ford", MaxDisplacement = 5000},
-                new BrandWithDisplacement() { BrandID = 4, BrandName = "Chevrolet", MaxDisplacement = 2000},
+                new CarBrand() { Model = "Camry", BrandName = "Toyota", Displacement = 3500},
+                new CarBrand() { Model = "Civic", BrandName = "Honda", Displacement = 2000},
+                new CarBrand() { Model = "F-150", BrandName = "Ford", Displacement = 5000},
+                new CarBrand() { Model = "Malibu", BrandName = "Chevrolet", Displacement = 2000},
             };
             Assert.AreEqual(expected, actual);
         }

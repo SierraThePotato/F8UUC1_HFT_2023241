@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\F8UUC1_HFT_2023241.Logic\F8UUC1_HFT_2023241.Logic.csproj" />
     <ProjectReference Include="..\F8UUC1_HFT_2023241.Models\F8UUC1_HFT_2023241.Models.csproj" />
   </ItemGroup>
 

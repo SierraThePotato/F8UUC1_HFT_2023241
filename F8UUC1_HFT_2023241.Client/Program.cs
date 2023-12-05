@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using ConsoleTools;
+using F8UUC1_HFT_2023241.Logic;
 using F8UUC1_HFT_2023241.Models;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Newtonsoft.Json;
@@ -249,7 +250,43 @@ namespace F8UUC1_HFT_2023241.Client
 
         static void DisplacementByBrand()
         {
-            rest.Get<Car>("noncrudcontroller/biggestdisplacementbybrand");
+            rest.Get<CarBrand>("noncrud/biggestdisplacementbybrand");
+            Console.ReadLine();
+        }
+        static void NewestCarByBrand()
+        {
+            rest.Get<Car>("noncrud/newestcarbybrand");
+            Console.ReadLine();
+        }
+        static void OldestCarByBrand()
+        {
+            rest.Get<Car>("noncrud/oldestcarbybrand");
+            Console.ReadLine();
+        }
+        static void CarBrandDisplacement()
+        {
+            var result = rest.Get<CarBrand>("noncrud/carbranddisplacement");
+            foreach (CarBrand car in result)
+            {
+                Console.WriteLine(car.BrandName + " " + car.Model + " " + car.Displacement);
+            }
+            Console.ReadLine();
+        }
+        static void CarBrandMinDisplacement()
+        {
+            int mindispalcement = 0;
+            bool success = false;
+            do
+            {
+                Console.Write("Minimum displacement: ");
+                success = int.TryParse(Console.ReadLine(), out mindispalcement);
+            } while(!success);
+            var result = rest.Get<CarBrand>("noncrud/carbrandmindisplacement/" + mindispalcement);
+            foreach (CarBrand car in result)
+            {
+                Console.WriteLine(car.BrandName + " " + car.Model + " " + car.Displacement);
+            }
+            Console.ReadLine();
         }
 
         static void Main(string[] args)
@@ -261,11 +298,6 @@ namespace F8UUC1_HFT_2023241.Client
                 .Add("Create", () => Create("Car"))
                 .Add("List", () => List("Car"))
                 .Add("Update", () => Update("Car"))
-                .Add("Delete", () => Delete("Car"))
-                .Add("Biggest displacement by brand", () => DisplacementByBrand())
-                .Add("Delete", () => Delete("Car"))
-                .Add("Delete", () => Delete("Car"))
-                .Add("Delete", () => Delete("Car"))
                 .Add("Delete", () => Delete("Car"))
                 .Add("Exit", ConsoleMenu.Close);
 
@@ -283,10 +315,19 @@ namespace F8UUC1_HFT_2023241.Client
                 .Add("Delete", () => Delete("Engine"))
                 .Add("Exit", ConsoleMenu.Close);
 
+            var noncrudMenu = new ConsoleMenu(args, level: 1)
+                .Add("Biggest displacement by brand", () => DisplacementByBrand())
+                .Add("Newest car by brand", () => NewestCarByBrand())
+                .Add("Oldest car by brand", () => OldestCarByBrand())
+                .Add("Cars with displacement", () => CarBrandDisplacement())
+                .Add("Cars with minimum displacement", () => CarBrandMinDisplacement())
+                .Add("Exit", ConsoleMenu.Close);
+
             var menu = new ConsoleMenu(args, level: 0)
                 .Add("Cars", () => carSubMenu.Show())
                 .Add("Brands", () => brandSubMenu.Show())
                 .Add("Engines", () => engineSubMenu.Show())
+                .Add("NON-CRUD", () => noncrudMenu.Show())
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();
