@@ -27,13 +27,13 @@ namespace F8UUC1_HFT_2023241.Endpoint.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Car> NewestCarByBrand()
+        public IEnumerable<CarBrand> NewestCarByBrand()
         {
             return this.logic.NewestCarByBrand();
         }
 
         [HttpGet]
-        public IEnumerable<Car> OldestCarByBrand()
+        public IEnumerable<CarBrand> OldestCarByBrand()
         {
             return this.logic.OldestCarByBrand();
         }

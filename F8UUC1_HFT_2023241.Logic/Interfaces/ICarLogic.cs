@@ -11,8 +11,8 @@ namespace F8UUC1_HFT_2023241.Logic.Interfaces
         IEnumerable<CarBrand> CarBrandMinDisplacement(int minDisplacement);
         void Create(Car item);
         void Delete(int id);
-        IEnumerable<Car> NewestCarByBrand();
-        IEnumerable<Car> OldestCarByBrand();
+        IEnumerable<CarBrand> NewestCarByBrand();
+        IEnumerable<CarBrand> OldestCarByBrand();
         Car Read(int id);
         IQueryable<Car> ReadAll();
         void Update(Car item);

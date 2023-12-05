@@ -6,6 +6,7 @@ using F8UUC1_HFT_2023241.Logic.Interfaces;
 using F8UUC1_HFT_2023241.Models;
 using F8UUC1_HFT_2023241.Repository;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Microsoft.VisualBasic;
 
 namespace F8UUC1_HFT_2023241.Logic
 {
@@ -57,23 +58,6 @@ namespace F8UUC1_HFT_2023241.Logic
             this.repo.Update(item);
         }
 
-        public IEnumerable<CarBrand> BiggestDisplacementByBrand1()
-        {
-            var brandsByDisplacement = from car in repo.ReadAll()
-                                       join engine in engineRepo.ReadAll() on car.EngineId equals engine.EngineId
-                                       join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
-                                       group new { engine.Displacement, car.Model } by brand.Name into grouped
-                                       select new CarBrand
-                                       {
-                                           BrandName = grouped.Key,
-                                           Displacement = grouped.Max(t => t.Displacement),
-                                           Model = grouped.First().Model
-                                       };
-
-            var a = brandsByDisplacement.AsEnumerable();
-            return a;
-        }
-        
         public IEnumerable<CarBrand> BiggestDisplacementByBrand()
         {
             var biggestDisplacementCars = repo.ReadAll()
@@ -82,36 +66,48 @@ namespace F8UUC1_HFT_2023241.Logic
                                             {
                                                 BrandName = brand.Name,
                                                 Model = ce.Car.Model,
-                                                Displacement = ce.Engine.Displacement
+                                                Displacement = ce.Engine.Displacement,
+                                                Year = ce.Car.Year
                                             })
+                                            .AsEnumerable()
                                             .GroupBy(cb => cb.BrandName)
                                             .Select(group => group.OrderByDescending(cb => cb.Displacement).First());
 
-            var a = biggestDisplacementCars.AsEnumerable();
-            return a;
+            return biggestDisplacementCars;
         }
 
 
-        public IEnumerable<Car> NewestCarByBrand()
+        public IEnumerable<CarBrand> NewestCarByBrand()
         {
-            var newestCarForEachBrand = from car in repo.ReadAll()
-                                        join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
-                                        group car by brand.BrandId into grouped
-                                        select grouped.AsEnumerable().OrderByDescending(t => t.Year).FirstOrDefault();
+            var newestCarForEachBrand = repo.ReadAll()
+                                            .Join(engineRepo.ReadAll(), car => car.EngineId, engine => engine.EngineId, (car, engine) => new { Car = car, Engine = engine })
+                                            .Join(brandRepo.ReadAll(), ce => ce.Car.BrandId, brand => brand.BrandId, (ce, brand) => new CarBrand
+                                            {
+                                                BrandName = brand.Name,
+                                                Model = ce.Car.Model,
+                                                Displacement = ce.Engine.Displacement,
+                                                Year = ce.Car.Year
+                                            })
+                                            .AsEnumerable()
+                                            .GroupBy(cb => cb.BrandName)
+                                            .Select(group => group.OrderByDescending(cb => cb.Year).First());
             return newestCarForEachBrand;
         }
 
-        public IEnumerable<Car> OldestCarByBrand()
+        public IEnumerable<CarBrand> OldestCarByBrand()
         {
-            var oldestCarForEachBrand = from car in repo.ReadAll()
-                                        join brand in brandRepo.ReadAll() on car.BrandId equals brand.BrandId
-                                        group car by brand.BrandId into grouped
-                                        let car = (
-                                            from item in grouped
-                                            orderby item.Year
-                                            select item
-                                        ).First()
-                                        select car;
+            var oldestCarForEachBrand = repo.ReadAll()
+                                            .Join(engineRepo.ReadAll(), car => car.EngineId, engine => engine.EngineId, (car, engine) => new { Car = car, Engine = engine })
+                                            .Join(brandRepo.ReadAll(), ce => ce.Car.BrandId, brand => brand.BrandId, (ce, brand) => new CarBrand
+                                            {
+                                                BrandName = brand.Name,
+                                                Model = ce.Car.Model,
+                                                Displacement = ce.Engine.Displacement,
+                                                Year = ce.Car.Year
+                                            })
+                                            .AsEnumerable()
+                                            .GroupBy(cb => cb.BrandName)
+                                            .Select(group => group.OrderBy(cb => cb.Year).First());
             return oldestCarForEachBrand;
         }
 
@@ -124,7 +120,8 @@ namespace F8UUC1_HFT_2023241.Logic
                              {
                                  BrandName = brand.Name,
                                  Model = car.Model,
-                                 Displacement = engine.Displacement
+                                 Displacement = engine.Displacement,
+                                 Year = car.Year
                              };
             return carDetails.AsEnumerable();
         }
@@ -139,7 +136,8 @@ namespace F8UUC1_HFT_2023241.Logic
                              {
                                  BrandName = brand.Name,
                                  Model = car.Model,
-                                 Displacement = engine.Displacement
+                                 Displacement = engine.Displacement,
+                                 Year = car.Year
                              };
             return carDetails.AsEnumerable();
         }
@@ -152,6 +150,7 @@ namespace F8UUC1_HFT_2023241.Logic
         public string BrandName { get; set; }
         public string Model { get; set; }
         public int Displacement { get; set; }
+        public int Year { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -159,12 +158,13 @@ namespace F8UUC1_HFT_2023241.Logic
             if (b == null) return false;
             return this.BrandName == b.BrandName
                 && this.Model == b.Model
-                && this.Displacement == b.Displacement;
+                && this.Displacement == b.Displacement
+                && this.Year == b.Year;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(this.BrandName, this.Model, this.Displacement);
+            return HashCode.Combine(this.BrandName, this.Model, this.Displacement, this.Year);
         }
     }
 

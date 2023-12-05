@@ -228,7 +228,8 @@ namespace F8UUC1_HFT_2023241.Client
                 {
                     Console.WriteLine($"{car.CarId}: {car.Model}");
                 }
-;            }
+;
+            }
             else if (entity == "Engine")
             {
                 List<Engine> engines = rest.Get<Engine>("engine");
@@ -250,25 +251,37 @@ namespace F8UUC1_HFT_2023241.Client
 
         static void DisplacementByBrand()
         {
-            rest.Get<CarBrand>("noncrud/biggestdisplacementbybrand");
+            var result = rest.Get<CarBrand>("NonCrud/BiggestDisplacementByBrand");
+            foreach (CarBrand car in result)
+            {
+                Console.WriteLine($"{car.BrandName}: {car.Model} {car.Displacement}");
+            }
             Console.ReadLine();
         }
         static void NewestCarByBrand()
         {
-            rest.Get<Car>("noncrud/newestcarbybrand");
+            var result = rest.Get<CarBrand>("NonCrud/NewestCarByBrand");
+            foreach (CarBrand car in result)
+            {
+                Console.WriteLine($"{car.BrandName}: {car.Model} {car.Year}");
+            }
             Console.ReadLine();
         }
         static void OldestCarByBrand()
         {
-            rest.Get<Car>("noncrud/oldestcarbybrand");
+            var result = rest.Get<CarBrand>("NonCrud/OldestCarByBrand");
+            foreach (CarBrand car in result)
+            {
+                Console.WriteLine($"{car.BrandName}: {car.Model} {car.Year}");
+            }
             Console.ReadLine();
         }
         static void CarBrandDisplacement()
         {
-            var result = rest.Get<CarBrand>("noncrud/carbranddisplacement");
+            var result = rest.Get<CarBrand>("NonCrud/CarBrandDisplacement");
             foreach (CarBrand car in result)
             {
-                Console.WriteLine(car.BrandName + " " + car.Model + " " + car.Displacement);
+                Console.WriteLine($"{car.BrandName} {car.Model}: {car.Displacement}");
             }
             Console.ReadLine();
         }
@@ -280,11 +293,11 @@ namespace F8UUC1_HFT_2023241.Client
             {
                 Console.Write("Minimum displacement: ");
                 success = int.TryParse(Console.ReadLine(), out mindispalcement);
-            } while(!success);
-            var result = rest.Get<CarBrand>("noncrud/carbrandmindisplacement/" + mindispalcement);
+            } while (!success);
+            var result = rest.Get<CarBrand>("NonCrud/CarBrandMinDisplacement/" + mindispalcement);
             foreach (CarBrand car in result)
             {
-                Console.WriteLine(car.BrandName + " " + car.Model + " " + car.Displacement);
+                Console.WriteLine($"{car.BrandName} {car.Model}: {car.Displacement}");
             }
             Console.ReadLine();
         }
@@ -327,7 +340,7 @@ namespace F8UUC1_HFT_2023241.Client
                 .Add("Cars", () => carSubMenu.Show())
                 .Add("Brands", () => brandSubMenu.Show())
                 .Add("Engines", () => engineSubMenu.Show())
-                .Add("NON-CRUD", () => noncrudMenu.Show())
+                .Add("Non-CRUD", () => noncrudMenu.Show())
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();
