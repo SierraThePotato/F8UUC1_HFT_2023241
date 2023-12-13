@@ -40,8 +40,8 @@ namespace F8UUC1_HFT_2023241.Logic
 
         public Car Read(int id)
         {
-            var movie = this.repo.Read(id);
-            if (movie == null)
+            var car = this.repo.Read(id);
+            if (car == null)
             {
                 throw new ArgumentException("Car does not exist.");
             }
@@ -155,7 +155,10 @@ namespace F8UUC1_HFT_2023241.Logic
         public override bool Equals(object obj)
         {
             CarBrand b = obj as CarBrand;
-            if (b == null) return false;
+            if (b == null)
+            {
+                return false;
+            }
             return this.BrandName == b.BrandName
                 && this.Model == b.Model
                 && this.Displacement == b.Displacement
